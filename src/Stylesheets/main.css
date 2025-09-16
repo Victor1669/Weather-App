@@ -1,0 +1,65 @@
+/*  */
+
+.locationDataContainer {
+  background: var(--locationBgImage) no-repeat;
+  height: 286px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+.locationClimateData {
+  display: flex;
+  place-items: center;
+  place-content: center;
+  gap: 15px;
+
+  span {
+    font-size: 65px;
+  }
+}
+
+/*  */
+.locationDataListComplementary {
+  width: 100%;
+  margin: 20px 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+.locationData {
+  width: 160px;
+  height: 120px;
+
+  justify-self: center;
+  border-radius: 10px;
+  padding: 15px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/*  */
+
+.dailyListForecast {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+.dailyData {
+  width: 108px;
+  height: 140px;
+
+  padding: 15px 10px;
+  text-align: center;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.minMax {
+  font-size: smaller;
+}
