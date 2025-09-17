@@ -1,0 +1,72 @@
+.App {
+  display: grid;
+  grid-template-rows: 40vh repeat(2, 60px) 138vh 70vh;
+  grid-template-areas:
+    "Header"
+    "SearchBar"
+    "SearchButton"
+    "Main"
+    "Aside";
+}
+#Header {
+  grid-area: Header;
+}
+#SearchBar {
+  grid-area: SearchBar;
+}
+#SearchButton {
+  grid-area: SearchButton;
+}
+#Main {
+  grid-area: Main;
+  display: grid;
+
+  #m-1-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  #m-2-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+}
+#Aside {
+  grid-area: Aside;
+}
+
+/* TABLET */
+@media only screen and (min-width: 830px) {
+  .App {
+    grid-template-rows: 25vh repeat(2, 80px) 105vh 70vh;
+  }
+  #Main {
+    width: 100%;
+
+    #m-1-list {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    #m-2-list {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+}
+/* DESKTOP */
+@media only screen and (min-width: 1440px) {
+  .App {
+    grid-template-columns: 1fr 800px 400px 1fr;
+    grid-template-rows: 20vh 80px 286px 1fr;
+    grid-template-areas:
+      ". Header Header ."
+      ". SearchBar SearchButton ."
+      ". Main Aside ."
+      ". Main Aside .";
+    gap: 20px;
+  }
+  #Main {
+    #m-2-list {
+      grid-template-columns: repeat(7, 1fr);
+    }
+  }
+}

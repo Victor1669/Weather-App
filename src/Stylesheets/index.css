@@ -31,19 +31,14 @@
   background-color: var(--Neutral900);
   width: 100%;
   min-height: 100%;
+
+  justify-items: center;
+
+  overflow-y: auto;
   padding: 15px;
 
-  display: grid;
-  grid-template-rows: 40vh 1fr;
-}
-
-@media only screen and (min-width: 800px) {
-  :root {
-    --locationBgImage: url("/images/bg-today-large.svg");
-  }
-  .sectionLocation {
-    width: 100%;
-    height: 286px;
+  & > *:not(#Header) {
+    max-width: 800px;
   }
 }
 
@@ -56,4 +51,127 @@ li {
 
 .generalBackground {
   background-color: var(--elementsGeneralBackground);
+}
+
+/*======================================== MEDIA QUERIES ========================================*/
+/* TABLET */
+@media only screen and (min-width: 830px) {
+  h3 {
+    font-size: 24px;
+  }
+  .m-1-container {
+    width: 100%;
+    background-image: url("/images/bg-today-large.svg");
+
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .m-2-data {
+    width: 95%;
+  }
+  #Aside {
+    width: 420px;
+  }
+}
+/* DESKTOP */
+@media only screen and (min-width: 1440px) {
+  .App {
+    padding: 30px 80px;
+
+    #SearchBar {
+      justify-self: end;
+      width: 60%;
+    }
+    #SearchButton {
+      justify-self: start;
+      width: fit-content;
+    }
+    #Main {
+      #m-1-list {
+        gap: 20px;
+      }
+      .m-2-data {
+        width: 100px;
+      }
+    }
+    #Aside {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+/*======================================== FONTS ========================================*/
+
+/* BRICOLAGE GROTESQUE */
+@font-face {
+  font-family: "BricolageGrotesque";
+  src: url("/fonts/BricolageGrotesque/static/BricolageGrotesque-Bold.ttf")
+    format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "BricolageGrotesque";
+  src: url("/fonts/Bricolage_Grotesque/BricolageGrotesque-VariableFont.ttf")
+    format("truetype");
+  font-weight: 100 900;
+  font-stretch: 75% 125%;
+  font-style: normal;
+}
+
+/* DM SANS */
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/Bricolage_Grotesque/static/BricolageGrotesque-Bold.ttf")
+    format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/Bricolage_Grotesque/BricolageGrotesque-VariableFont_opsz\,wdth\,wght.ttf")
+    format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/DM_Sans/static/DMSans-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/DM_Sans/static/DMSans-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/DM_Sans/static/DMSans-SemiBoldItalic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/DM_Sans/DMSans-Italic-VariableFont_opsz,wght.ttf")
+    format("truetype");
+  font-weight: 100 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf")
+    format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
 }

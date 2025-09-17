@@ -1,9 +1,10 @@
-.hourlyForecast {
-  margin: 25px 0;
+#Aside {
   border-radius: 20px;
   padding: 15px;
+  width: 345px;
+  height: 95%;
 }
-.hourlyHeader {
+.a-header {
   overflow-y: auto;
   display: flex;
   align-items: center;
@@ -13,7 +14,7 @@
     float: left;
   }
 }
-.daysDropbox {
+.a-dropbox {
   background-color: var(--Neutral600);
   float: right;
   padding: 5px;
@@ -23,9 +24,7 @@
     margin: 0 5px;
   }
 }
-.hourlyListForecast {
-}
-.hourlyData {
+.a-data {
   background-color: var(--Neutral700);
   padding: 10px;
   margin: 10px 0 0;
