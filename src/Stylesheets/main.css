@@ -19,7 +19,6 @@
   text-align: center;
 
   padding: 30px;
-  margin-top: 20px;
 
   background: var(--locationBgImage) no-repeat;
   background-size: 100%;
@@ -43,7 +42,7 @@
 
 #m-1-list {
   width: 100%;
-  margin: 20px 0;
+  margin: 20px 0 0;
 }
 .m-1-data {
   width: 100%;

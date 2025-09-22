@@ -13,6 +13,8 @@
 
   --generalFontColor: hsl(0, 0%, 100%);
 
+  --generalBorderColor: hsl(243, 22%, 37%);
+
   --elementsGeneralBackground: hsl(243, 27%, 20%);
 
   --locationBgImage: url("/images/bg-today-small.svg");
@@ -52,54 +54,29 @@ li {
 .generalBackground {
   background-color: var(--elementsGeneralBackground);
 }
+.dropdownContainer {
+  background-color: var(--elementsGeneralBackground);
 
-/*======================================== MEDIA QUERIES ========================================*/
-/* TABLET */
-@media only screen and (min-width: 830px) {
-  h3 {
-    font-size: 24px;
-  }
-  .m-1-container {
-    width: 100%;
-    background-image: url("/images/bg-today-large.svg");
+  padding: 5px;
+  border-radius: 10px;
+  display: none;
 
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .m-2-data {
-    width: 95%;
-  }
-  #Aside {
-    width: 420px;
+  position: absolute;
+}
+.dropdownItem {
+  background-color: var(--elementsGeneralBackground);
+
+  padding: 5px 15px;
+  border-radius: 5px;
+  border: 0;
+
+  &:hover {
+    cursor: pointer;
+    background-color: var(--Neutral600);
   }
 }
-/* DESKTOP */
-@media only screen and (min-width: 1440px) {
-  .App {
-    padding: 30px 80px;
-
-    #SearchBar {
-      justify-self: end;
-      width: 60%;
-    }
-    #SearchButton {
-      justify-self: start;
-      width: fit-content;
-    }
-    #Main {
-      #m-1-list {
-        gap: 20px;
-      }
-      .m-2-data {
-        width: 100px;
-      }
-    }
-    #Aside {
-      width: 100%;
-      height: 100%;
-    }
-  }
+.generalBorder {
+  border: 1px solid var(--generalBorderColor);
 }
 
 /*======================================== FONTS ========================================*/

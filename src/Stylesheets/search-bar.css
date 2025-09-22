@@ -9,25 +9,39 @@
   padding: 15px;
   border-radius: 10px;
 
+  position: relative;
+
   display: flex;
-  justify-content: center;
   gap: 10px;
 }
 .s-label {
   display: flex;
   align-items: center;
-
-  &:hover {
-    cursor: pointer;
-  }
 }
 .s-input {
   width: 80%;
   background-color: transparent;
   border: 0;
 
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  padding: inherit;
+  padding-left: 60px;
+
   &::placeholder {
     color: white;
+  }
+}
+.s-results-list {
+  inset: 110% 0 auto;
+  display: block;
+  z-index: 1;
+}
+.s-results-item {
+  border-color: transparent;
+  &:hover {
+    border-color: var(--generalBorderColor);
   }
 }
 #SearchButton {

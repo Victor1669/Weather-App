@@ -9,5 +9,6 @@ import "./Stylesheets/index.css";
 import "./Stylesheets/search-bar.css";
 import "./Stylesheets/header.css";
 import "./Stylesheets/aside.css";
+import "./Stylesheets/media-breakpoints.css";
 
 createRoot(document.getElementById("root")).render(<App />);

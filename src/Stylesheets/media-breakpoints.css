@@ -1,0 +1,51 @@
+/*======================================== MEDIA QUERIES ========================================*/
+/* TABLET */
+@media only screen and (min-width: 830px) {
+  h3 {
+    font-size: 24px;
+  }
+  .m-1-container {
+    width: 100%;
+    background-image: url("/images/bg-today-large.svg");
+
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .m-2-data {
+    width: 95%;
+  }
+  #Aside {
+    width: 440px;
+  }
+}
+/* DESKTOP */
+@media only screen and (min-width: 1440px) {
+  .App {
+    padding: 30px 80px;
+
+    #SearchBar {
+      justify-self: end;
+      width: 60%;
+    }
+    #SearchButton {
+      justify-self: start;
+      width: fit-content;
+    }
+    #Main {
+      #m-1-list {
+        gap: 20px;
+      }
+      .m-2-data {
+        width: 100px;
+      }
+    }
+    #Aside {
+      height: 100%;
+
+      .a-data {
+        padding: 16px 30px;
+      }
+    }
+  }
+}
