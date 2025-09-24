@@ -35,8 +35,20 @@
   top: 54px;
 
   button {
-    width: 180px;
+    width: 200px;
   }
+}
+.h-dropdown-field {
+  .dropdownItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+.h-dropdown-field-legend {
+  font-size: 15px;
+  color: var(--Neutral300);
+  padding: 10px 15px;
 }
 .h-dropdown-division {
   background-color: var(--generalBorderColor);
@@ -45,11 +57,7 @@
   height: 1px;
   margin: 4px 0;
 }
-.h-dropdown-field-legend {
-  font-size: 15px;
-  color: var(--Neutral300);
-  padding: 10px 15px;
-}
+
 .h-subtitle {
   text-align: center;
   font-size: 55px;

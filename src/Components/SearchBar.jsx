@@ -11,7 +11,7 @@ export default function SearchBar({
         {children[0]}
 
         {locationsList?.length &&
-        query.length &&
+        query?.length &&
         (showResults || focusResults) ? (
           children[1]
         ) : (
@@ -23,25 +23,37 @@ export default function SearchBar({
     </>
   );
 }
-export function ResultsList({ locationsList }) {
+export function ResultsList({
+  locationsList,
+  setStates: [setQuery, setSelectedPlace],
+}) {
   return (
-    <ul className="s-results-list dropdownContainer">
+    <ul className="s-results-list generalBorder dropdownContainer">
       {locationsList.map((loc, i) => (
-        <li
-          tabIndex={0}
+        <button
+          onClick={() => {
+            setQuery(loc?.name);
+            setSelectedPlace(loc);
+          }}
           className="s-results-item generalBorder dropdownItem"
           key={i}
         >
-          {loc?.name}
-        </li>
+          {loc?.name} - {loc?.country}
+        </button>
       ))}
     </ul>
   );
 }
-export function SearchButton({ onSearch, setShowResults }) {
+export function SearchButton({
+  onSearch,
+  setStates: [setShowResults, setShowDays],
+}) {
   return (
     <button
-      onFocus={() => setShowResults(false)}
+      onFocus={() => {
+        setShowResults(false);
+        setShowDays(false);
+      }}
       id="SearchButton"
       onClick={onSearch}
     >

@@ -40,6 +40,8 @@
 }
 .s-results-item {
   border-color: transparent;
+  width: 100%;
+  text-align: start;
   &:hover {
     border-color: var(--generalBorderColor);
   }

@@ -1,8 +1,9 @@
+import ClimateImages from "../climate-condition.json";
+
 export default function Aside({ children }) {
   return (
     <aside id="Aside" className="generalBorder generalBackground">
       {children}
-      <AsideDataList />
     </aside>
   );
 }
@@ -31,21 +32,12 @@ export function AsideButton({ day, setStates: [setShowDays, setShowResults] }) {
   );
 }
 
-export function AsideDaysList({ setStates: [setDay, setShowDays] }) {
-  const daysList = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
+export function AsideDaysList({
+  data: [daysList],
+  setStates: [setDay, setShowDays, setSelectedDay],
+}) {
   return (
-    <ul
-      className="dropdownContainer generalBorder a-dropdown"
-      defaultValue="Monday"
-    >
+    <ul className="dropdownContainer generalBorder a-dropdown">
       {daysList.map((dayValue, i) => (
         <button
           className="dropdownItem"
@@ -53,6 +45,7 @@ export function AsideDaysList({ setStates: [setDay, setShowDays] }) {
           onClick={() => {
             setDay(dayValue);
             setShowDays(false);
+            setSelectedDay(i + 1);
           }}
         >
           {dayValue}
@@ -77,25 +70,42 @@ export function LastFocusable({ setStates: [setShowDays, setFocusShowDays] }) {
   );
 }
 
-function AsideDataList() {
-  return (
-    <ul role="group">
-      <A_Data_Item />
-      <A_Data_Item />
-      <A_Data_Item />
-      <A_Data_Item />
-      <A_Data_Item />
-      <A_Data_Item />
-      <A_Data_Item />
-      <A_Data_Item />
-    </ul>
-  );
+export function AsideDataList({ children }) {
+  return <ul role="group">{children}</ul>;
 }
 
-function A_Data_Item() {
+export function ADataItem({ hour, data: [h_temp, h_code] }) {
+  const imgCode = !h_code
+    ? 0
+    : h_code <= 2
+    ? 1
+    : h_code === 3
+    ? 3
+    : h_code <= 48
+    ? 2
+    : h_code <= 55
+    ? 4
+    : h_code <= 65
+    ? 5
+    : h_code <= 75
+    ? 6
+    : 7;
   return (
     <li className="a-data generalBorder">
-      [IMAGE] [HOUR] <span>[DEGREE]</span>
+      <span>
+        <img
+          src={ClimateImages[imgCode].image}
+          alt={ClimateImages[imgCode].alt}
+        />{" "}
+        {hour < 12
+          ? hour + " AM"
+          : hour < 24 && hour > 12
+          ? hour - 12 + " PM"
+          : hour > 24
+          ? hour - 24 + " AM"
+          : "12 PM"}
+      </span>
+      <span>{h_temp || 0}°</span>
     </li>
   );
 }

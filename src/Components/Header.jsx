@@ -1,20 +1,15 @@
-import { useState } from "react";
-
-export default function Header({
-  children,
-  states: [showUnitsBox, focusUnitsBox],
-}) {
+export default function Header({ children, states: [showUnitsBox] }) {
   return (
     <header id="Header">
       <h1 className="h-logo">Weather Now</h1>
       {children[0]}
-      {(showUnitsBox || focusUnitsBox) && children[1]}
+      {showUnitsBox && children[1]}
 
       <h2 className="h-subtitle">How's the sky looking today?</h2>
     </header>
   );
 }
-export function DropBoxButton({
+export function HeaderButton({
   setStates: [setShowUnitsBox, setShowDays, setShowResults],
 }) {
   return (
@@ -25,6 +20,7 @@ export function DropBoxButton({
         setShowDays(false);
         setShowResults(false);
       }}
+      onFocus={() => setShowResults(false)}
       aria-haspopup="true"
       aria-controls="unit-box"
     >
@@ -35,7 +31,7 @@ export function DropBoxButton({
   );
 }
 
-export function UnitsMenu({ children }) {
+export function UnitsMenu({ children, units }) {
   return (
     <menu className="h-dropdown dropdownContainer generalBorder" id="unit-box">
       {children}
@@ -43,11 +39,17 @@ export function UnitsMenu({ children }) {
         legend="Temperature"
         item1="Celsius (°C)"
         item2="Farenheit (°F)"
+        units={units}
       />
 
       <span className="h-dropdown-division"></span>
 
-      <UnitsMenuItem legend="Wind Speed" item1="km/h" item2="mph" />
+      <UnitsMenuItem
+        legend="Wind Speed"
+        item1="km/h"
+        item2="mph"
+        units={units}
+      />
 
       <span className="h-dropdown-division"></span>
 
@@ -55,38 +57,37 @@ export function UnitsMenu({ children }) {
         legend="Precipitation"
         item1="Millimeters (mm)"
         item2="Inches (in)"
+        units={units}
       />
     </menu>
   );
 }
-function UnitsMenuItem({ legend, item1, item2 }) {
+function UnitsMenuItem({ legend, item1, item2, units }) {
   return (
     <div className="h-dropdown-field">
       <span className="h-dropdown-field-legend">{legend}</span>
       <div role="menuitem" className="dropdownItem">
         {item1}
+        {units === "Metric" && <img src="/images/icon-checkmark.svg" alt="" />}
       </div>
       <div role="menuitem" className="dropdownItem">
         {item2}
+        {units === "Imperial" && (
+          <img src="/images/icon-checkmark.svg" alt="" />
+        )}
       </div>
     </div>
   );
 }
-export function UnitsButton({
-  setStates: [setShowUnitsBox, setFocusUnitsBox],
-}) {
-  const [switchUnit, setSwitchUnit] = useState(false);
+export function UnitsButton({ units, setUnits }) {
   return (
     <button
       className="dropdownItem"
-      onClick={() => setSwitchUnit((u) => !u)}
-      onFocus={() => setFocusUnitsBox(true)}
-      onBlur={() => {
-        setFocusUnitsBox(false);
-        setShowUnitsBox(false);
-      }}
+      onClick={() =>
+        setUnits((prev) => (prev === "Imperial" ? "Metric" : "Imperial"))
+      }
     >
-      Switch to {switchUnit ? "Imperial" : "Metric"}
+      Switch to {units === "Imperial" ? "Metric" : "Imperial"}
     </button>
   );
 }

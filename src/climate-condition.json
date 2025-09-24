@@ -1,7 +1,11 @@
 [
   {
-    "image": "/images/icon-drizzle.webp",
-    "alt": "Light drizzle, small raindrops falling"
+    "image": "/images/icon-sunny.webp",
+    "alt": "Sunny, clear sky with bright sun"
+  },
+  {
+    "image": "/images/icon-partly-cloudy.webp",
+    "alt": "Partly cloudy, sun visible through clouds"
   },
   {
     "image": "/images/icon-fog.webp",
@@ -12,8 +16,8 @@
     "alt": "Overcast sky, fully cloudy"
   },
   {
-    "image": "/images/icon-partly-cloudy.webp",
-    "alt": "Partly cloudy, sun visible through clouds"
+    "image": "/images/icon-drizzle.webp",
+    "alt": "Light drizzle, small raindrops falling"
   },
   {
     "image": "/images/icon-rain.webp",
@@ -26,9 +30,5 @@
   {
     "image": "/images/icon-storm.webp",
     "alt": "Stormy, heavy rain with thunder"
-  },
-  {
-    "image": "/images/icon-sunny.webp",
-    "alt": "Sunny, clear sky with bright sun"
   }
 ]

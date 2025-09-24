@@ -12,6 +12,9 @@
     align-items: center;
     justify-content: space-between;
   }
+  .m-1-header {
+    text-align: start;
+  }
   .m-2-data {
     width: 95%;
   }
@@ -44,7 +47,7 @@
       height: 100%;
 
       .a-data {
-        padding: 16px 30px;
+        padding: 1px 15px;
       }
     }
   }
