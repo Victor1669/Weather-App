@@ -14,7 +14,7 @@ export function HeaderButton({
 }) {
   return (
     <button
-      className="h-dropdown-button generalBackground"
+      className="h-dropdown-button generalBackground hover"
       onClick={() => {
         setShowUnitsBox((s) => !s);
         setShowDays(false);
@@ -62,32 +62,40 @@ export function UnitsMenu({ children, units }) {
     </menu>
   );
 }
-function UnitsMenuItem({ legend, item1, item2, units }) {
-  return (
-    <div className="h-dropdown-field">
-      <span className="h-dropdown-field-legend">{legend}</span>
-      <div role="menuitem" className="dropdownItem">
-        {item1}
-        {units === "Metric" && <img src="/images/icon-checkmark.svg" alt="" />}
-      </div>
-      <div role="menuitem" className="dropdownItem">
-        {item2}
-        {units === "Imperial" && (
-          <img src="/images/icon-checkmark.svg" alt="" />
-        )}
-      </div>
-    </div>
-  );
-}
 export function UnitsButton({ units, setUnits }) {
   return (
     <button
-      className="dropdownItem"
+      className="h-dropdown-unit-button hover"
       onClick={() =>
         setUnits((prev) => (prev === "Imperial" ? "Metric" : "Imperial"))
       }
     >
       Switch to {units === "Imperial" ? "Metric" : "Imperial"}
     </button>
+  );
+}
+function UnitsMenuItem({ legend, item1, item2, units }) {
+  return (
+    <div className="h-dropdown-field">
+      <span className="h-dropdown-field-legend">{legend}</span>
+      <div
+        role="menuitem"
+        aria-checked={units === "Metric"}
+        className="h-dropdown-field-unit dropdownItem hover"
+      >
+        {item1}
+        {units === "Metric" && <img src="/images/icon-checkmark.svg" alt="" />}
+      </div>
+      <div
+        role="menuitem"
+        aria-checked={units === "Imperial"}
+        className="h-dropdown-field-unit dropdownItem hover"
+      >
+        {item2}
+        {units === "Imperial" && (
+          <img src="/images/icon-checkmark.svg" alt="" />
+        )}
+      </div>
+    </div>
   );
 }

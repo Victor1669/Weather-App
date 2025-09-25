@@ -27,6 +27,7 @@ export default function App() {
   const [focusResults, setFocusResults] = useState(false);
 
   /* ASIDE */
+  // DAYS
   const actualDay = new Date().getDay();
   const [selectedDay, setSelectedDay] = useState(new Date().getDay());
   const dayIndex =
@@ -50,6 +51,7 @@ export default function App() {
   const [showDays, setShowDays] = useState(false);
   const [focusShowDays, setFocusShowDays] = useState(false);
 
+  // HOURS
   const [actualHour, setActualHour] = useState(
     Number(new Date().toLocaleTimeString().slice(0, 2))
   );
@@ -60,7 +62,7 @@ export default function App() {
 
   const [timesSearched, setTimesSearched] = useState(0);
 
-  /* DATA */
+  // DATA
   const [units, setUnits] = useState("Metric");
 
   const [cityName, setCityName] = useState("City");
@@ -87,8 +89,81 @@ export default function App() {
     temp_max?.map((_, i) => [temp_max[i], temp_min[i], d_code[i]]) ??
     Array.from({ length: 7 });
 
-  function handleSearch(e) {
-    e.preventDefault();
+  /* LOADING */
+  const [isLoading, setIsLoading] = useState(false);
+
+  // USEEFFECT FOR GETTING THE COORDINATES, COUNTRY AND NAME OF THE LOCATION
+  useEffect(() => {
+    if (query.length < 2) return;
+
+    const controller = new AbortController();
+
+    (async function FetchLocation() {
+      try {
+        const res = await fetch(
+          `https://geocoding-api.open-meteo.com/v1/search?name=${query}`,
+          { signal: controller.signal }
+        );
+
+        const data = await res?.json();
+
+        setLocationsList(data.results);
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          console.log(err);
+        }
+      }
+    })();
+
+    return () => controller.abort();
+  }, [query]);
+  // USEEFFECT FOR GETTING THE WEATHER DATA
+  useEffect(() => {
+    setIsLoading(true);
+    if (!locationsList?.length || !Object.keys(selectedPlace).length)
+      return setIsLoading(false);
+
+    const controller = new AbortController();
+
+    const { latitude, longitude } = selectedPlace;
+
+    (async function FetchWeather() {
+      try {
+        const res = await fetch(
+          `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}` +
+            `&current=temperature_2m,apparent_temperature,wind_speed_10m,precipitation,weather_code,relative_humidity_2m` +
+            `&hourly=,temperature_2m,weather_code` +
+            `&daily=weather_code,temperature_2m_max,temperature_2m_min` +
+            `&timezone=auto` +
+            `&${units === "Imperial" ? "wind_speed_unit=mph&" : ""}${
+              units === "Imperial" ? "temperature_unit=fahrenheit&" : ""
+            }${units === "Imperial" ? "precipitation_unit=inch" : ""}`,
+          { signal: controller.signal }
+        );
+
+        const data = await res.json();
+
+        setWeatherData(data);
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          console.log(err);
+        }
+      }
+      setIsLoading(false);
+    })();
+
+    return () => controller.abort();
+  }, [timesSearched, units]);
+
+  // USEEFFET TO CLOSE THE RESULTS WHEN SELECTING THE LOCATION
+  useEffect(() => {
+    if (!query.length) return;
+    setShowResults(false);
+  }, [selectedPlace]);
+
+  /* SEARCHING FUNCTION */
+  function handleSearch() {
+    if (query.length < 2) return;
 
     setTimesSearched((prev) => prev + 1);
 
@@ -107,63 +182,6 @@ export default function App() {
       )
     );
   }
-
-  // USEEFFECT FOR GETTING THE COORDINATES, COUNTRY AND NAME OF THE LOCATION
-  useEffect(() => {
-    if (!query?.length) return;
-
-    const controller = new AbortController();
-
-    (async function FetchLocation() {
-      try {
-        const res = await fetch(
-          `https://geocoding-api.open-meteo.com/v1/search?name=${query}`,
-          { signal: controller.signal }
-        );
-
-        const data = await res.json();
-
-        setLocationsList(data.results);
-      } catch (err) {
-        if (err.name !== "AbortError") {
-          console.log(err.name);
-        }
-      }
-    })();
-
-    return () => controller.abort();
-  }, [query]);
-  // USEEFFECT FOR GETTING THE WEATHER DATA
-  useEffect(() => {
-    if (!locationsList?.length || !Object.keys(selectedPlace).length) return;
-
-    const { latitude, longitude } = selectedPlace;
-
-    async function FetchWeather() {
-      const res = await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}` +
-          `&current=temperature_2m,apparent_temperature,wind_speed_10m,precipitation,weather_code,relative_humidity_2m` +
-          `&hourly=,temperature_2m,weather_code` +
-          `&daily=weather_code,temperature_2m_max,temperature_2m_min` +
-          `&timezone=auto` +
-          `&${units === "Imperial" ? "wind_speed_unit=mph&" : ""}${
-            units === "Imperial" ? "temperature_unit=fahrenheit&" : ""
-          }${units === "Imperial" ? "precipitation_unit=inch" : ""}`
-      );
-
-      const data = await res.json();
-
-      console.log(data);
-
-      setWeatherData(data);
-    }
-    FetchWeather();
-  }, [timesSearched, units]);
-
-  useEffect(() => {
-    if (!query.length) return;
-    setShowResults(false);
-  }, [selectedPlace]);
 
   return (
     <div className="App">
@@ -206,20 +224,25 @@ export default function App() {
       <Main>
         <Main1>
           <M1MainData
+            l={isLoading}
             weatherData={[c_temp, c_code]}
             locationData={[cityName, countryName]}
-          />
+          >
+            <LoadingSpinner />
+          </M1MainData>
           <M1ComplementaryData>
-            <M1Data title="Fells like" data={tempFeel} unit="°" />
-            <M1Data title="Humidity" data={c_humidity} unit="%" />
+            <M1Data l={isLoading} title="Fells like" data={tempFeel} unit="°" />
+            <M1Data l={isLoading} title="Humidity" data={c_humidity} unit="%" />
             <M1Data
+              l={isLoading}
               title="Wind"
-              data={(windSpeed || 0) + " "}
+              data={windSpeed}
               unit={units === "Imperial" ? "mph" : "km/h"}
             />
             <M1Data
+              l={isLoading}
               title="Precipitation"
-              data={(c_prec || 0) + " "}
+              data={c_prec}
               unit={units === "Imperial" ? "in" : "mm"}
             />
           </M1ComplementaryData>
@@ -227,7 +250,7 @@ export default function App() {
         <Main2>
           <Main2List>
             {dailyData.map((data, i) => (
-              <M2LI data={data} key={i} index={i} />
+              <M2LI l={isLoading} data={data} key={i} index={i} />
             ))}
           </Main2List>
         </Main2>
@@ -235,8 +258,13 @@ export default function App() {
       <Aside>
         <AsideHeader states={[showDays, focusShowDays]}>
           {[
-            <AsideButton day={day} setStates={[setShowDays, setShowResults]} />,
+            <AsideButton
+              l={isLoading}
+              day={day}
+              setStates={[setShowDays, setShowResults]}
+            />,
             <AsideDaysList
+              day={day}
               data={[daysList]}
               setStates={[setDay, setShowDays, setSelectedDay]}
             />,
@@ -246,6 +274,7 @@ export default function App() {
         <AsideDataList>
           {hoursList.map((hour) => (
             <ADataItem
+              l={isLoading}
               data={[
                 h_temp?.[hour + 24 * dayIndex],
                 h_code?.[hour + 24 * dayIndex],
@@ -256,6 +285,15 @@ export default function App() {
           ))}
         </AsideDataList>
       </Aside>
+    </div>
+  );
+}
+
+import { BeatLoader } from "react-spinners";
+function LoadingSpinner() {
+  return (
+    <div className="loading">
+      <BeatLoader color="white" />
     </div>
   );
 }

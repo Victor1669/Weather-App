@@ -8,12 +8,16 @@
   --Neutral200: hsl(250, 6%, 84%);
   --Neutral0: hsl(0, 0%, 100%);
   --Orange500: hsl(28, 100%, 52%);
+
+  /* COLORS FOR THE SEARCH BUTTON */
   --Blue500: hsl(233, 67%, 56%);
   --Blue700: hsl(248, 70%, 36%);
 
   --generalFontColor: hsl(0, 0%, 100%);
 
   --generalBorderColor: hsl(243, 22%, 37%);
+
+  --generalHoverBack: hsl(244, 22%, 26%);
 
   --elementsGeneralBackground: hsl(243, 27%, 20%);
 
@@ -40,7 +44,7 @@
   padding: 15px;
 
   & > *:not(#Header) {
-    max-width: 800px;
+    max-width: 343px;
   }
 }
 
@@ -69,10 +73,12 @@ li {
   padding: 5px 15px;
   border-radius: 5px;
   border: 0;
-
+}
+.hover {
+  transition: background-color 0.2s;
   &:hover {
     cursor: pointer;
-    background-color: var(--Neutral600);
+    background-color: var(--generalHoverBack);
   }
 }
 .generalBorder {

@@ -7,7 +7,11 @@ export default function SearchBar({
   return (
     <>
       <div id="SearchBar" className="generalBackground" role="searchbox">
-        <img src="/images/icon-search.svg" alt="Search Icon" />
+        <img
+          className="s-img"
+          src="/images/icon-search.svg"
+          alt="Search Icon"
+        />
         {children[0]}
 
         {locationsList?.length &&
@@ -35,7 +39,7 @@ export function ResultsList({
             setQuery(loc?.name);
             setSelectedPlace(loc);
           }}
-          className="s-results-item generalBorder dropdownItem"
+          className="s-results-item generalBorder dropdownItem hover"
           key={i}
         >
           {loc?.name} - {loc?.country}
@@ -73,7 +77,7 @@ export function SearchInput({
 }) {
   return (
     <input
-      className="s-input"
+      className="s-input hover"
       placeholder="Search for a place..."
       type="text"
       value={query}

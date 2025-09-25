@@ -19,28 +19,35 @@ export function AsideHeader({ children, states: [showDays, focusShowDays] }) {
   );
 }
 
-export function AsideButton({ day, setStates: [setShowDays, setShowResults] }) {
+export function AsideButton({
+  day,
+  setStates: [setShowDays, setShowResults],
+  l,
+}) {
   return (
     <button
       onClick={() => setShowDays((s) => !s)}
       onFocus={() => setShowResults(false)}
-      className="a-dropdown-button"
+      className="a-dropdown-button hover"
     >
-      <span>{day}</span>
+      <span>{l ? "—" : day}</span>
       <img width={14} src="/images/icon-dropdown.svg" alt="" />
     </button>
   );
 }
 
 export function AsideDaysList({
+  day,
   data: [daysList],
   setStates: [setDay, setShowDays, setSelectedDay],
 }) {
   return (
-    <ul className="dropdownContainer generalBorder a-dropdown">
+    <ul className="a-dropdown dropdownContainer generalBorder">
       {daysList.map((dayValue, i) => (
         <button
-          className="dropdownItem"
+          tabIndex={0}
+          className="hover"
+          aria-checked={day === dayValue}
           key={i}
           onClick={() => {
             setDay(dayValue);
@@ -49,24 +56,10 @@ export function AsideDaysList({
           }}
         >
           {dayValue}
+          <img src="/images/icon-checkmark.svg" alt="" />
         </button>
       ))}
     </ul>
-  );
-}
-
-export function LastFocusable({ setStates: [setShowDays, setFocusShowDays] }) {
-  return (
-    <span
-      className="ending-focusable"
-      onFocus={() => {
-        setShowDays(false);
-        setFocusShowDays(false);
-      }}
-      tabIndex={0}
-    >
-      The focusable content on the website has ended.
-    </span>
   );
 }
 
@@ -74,7 +67,7 @@ export function AsideDataList({ children }) {
   return <ul role="group">{children}</ul>;
 }
 
-export function ADataItem({ hour, data: [h_temp, h_code] }) {
+export function ADataItem({ hour, data: [h_temp, h_code], l }) {
   const imgCode = !h_code
     ? 0
     : h_code <= 2
@@ -92,20 +85,38 @@ export function ADataItem({ hour, data: [h_temp, h_code] }) {
     : 7;
   return (
     <li className="a-data generalBorder">
-      <span>
-        <img
-          src={ClimateImages[imgCode].image}
-          alt={ClimateImages[imgCode].alt}
-        />{" "}
-        {hour < 12
-          ? hour + " AM"
-          : hour < 24 && hour > 12
-          ? hour - 12 + " PM"
-          : hour > 24
-          ? hour - 24 + " AM"
-          : "12 PM"}
-      </span>
-      <span>{h_temp || 0}°</span>
+      {l || (
+        <>
+          <span>
+            <img
+              src={ClimateImages[imgCode].image}
+              alt={ClimateImages[imgCode].alt}
+            />{" "}
+            {hour < 12
+              ? hour + " AM"
+              : hour < 24 && hour > 12
+              ? hour - 12 + " PM"
+              : hour > 24
+              ? hour - 24 + " AM"
+              : "12 PM"}
+          </span>
+          <span>{h_temp || 0}°</span>
+        </>
+      )}
     </li>
+  );
+}
+export function LastFocusable({ setStates: [setShowDays, setFocusShowDays] }) {
+  return (
+    <span
+      className="ending-focusable"
+      onFocus={() => {
+        setShowDays(false);
+        setFocusShowDays(false);
+      }}
+      tabIndex={0}
+    >
+      The focusable content on the website has ended.
+    </span>
   );
 }

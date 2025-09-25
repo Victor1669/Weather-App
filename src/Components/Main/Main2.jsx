@@ -15,7 +15,7 @@ export function Main2List({ children }) {
     </ul>
   );
 }
-export function M2LI({ data: [max = 0, min = 0, d_code] = [], index }) {
+export function M2LI({ data: [max = 0, min = 0, d_code] = [], index, l }) {
   const imgCode = !d_code
     ? 0
     : d_code <= 2
@@ -53,17 +53,21 @@ export function M2LI({ data: [max = 0, min = 0, d_code] = [], index }) {
 
   return (
     <li className="m-2-data generalBorder generalBackground">
-      {daysList[dayIndex - 1 + index]}
-      <figure>
-        <img
-          src={ClimateImages[imgCode].image}
-          alt={ClimateImages[imgCode].alt}
-        />
-      </figure>
-      <span className="m-2-min-max">
-        <span>{min?.toFixed(0)}°</span>
-        <span>{max?.toFixed(0)}°</span>
-      </span>
+      {l || (
+        <>
+          {daysList[dayIndex - 1 + index].slice(0, 3)}
+          <figure>
+            <img
+              src={ClimateImages[imgCode].image}
+              alt={ClimateImages[imgCode].alt}
+            />
+          </figure>
+          <span className="m-2-min-max">
+            <span>{min?.toFixed(0)}°</span>
+            <span>{max?.toFixed(0)}°</span>
+          </span>
+        </>
+      )}
     </li>
   );
 }

@@ -4,8 +4,10 @@ export default function Main1({ children }) {
   return <section id="m-1-location-forecast">{children}</section>;
 }
 export function M1MainData({
+  children,
   weatherData: [c_temp, c_code],
   locationData: [cityName, countryName],
+  l,
 }) {
   // DATE
   const date = new Date();
@@ -36,24 +38,30 @@ export function M1MainData({
     : 7;
 
   return (
-    <div className="m-1-container">
-      <header className="m-1-header">
-        <h3 className="m-1-location-name">
-          {cityName}, {countryName}
-        </h3>
-        <p>
-          {actualDay}, {actualMonth.slice(0, 3) + " " + date.getDate()}{" "}
-          {date.getFullYear()}
-        </p>
-      </header>
-      <div className="m-1-container-data" role="complementary">
-        <img
-          width={100}
-          src={ClimateImages[imgCode]?.image}
-          alt={ClimateImages[imgCode]?.alt}
-        />
-        <span className="m-1-data-number">{c_temp || 0}°</span>
-      </div>
+    <div className="m-1-container generalBackground">
+      {l ? (
+        children
+      ) : (
+        <div className="m-1-content">
+          <header className="m-1-header">
+            <h3 className="m-1-location-name">
+              {cityName}, {countryName}
+            </h3>
+            <p>
+              {actualDay}, {actualMonth.slice(0, 3) + " " + date.getDate()}{" "}
+              {date.getFullYear()}
+            </p>
+          </header>
+          <div className="m-1-container-data" role="complementary">
+            <img
+              width={100}
+              src={ClimateImages[imgCode]?.image}
+              alt={ClimateImages[imgCode]?.alt}
+            />
+            <span className="m-1-data-number">{c_temp || 0}°</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -64,14 +72,10 @@ export function M1ComplementaryData({ children }) {
     </ul>
   );
 }
-export function M1Data({ title, data, unit }) {
+export function M1Data({ title, data, unit, l }) {
   return (
     <li className="m-1-data generalBorder generalBackground">
-      <span>{title}</span>{" "}
-      <span>
-        {data || 0}
-        {unit}
-      </span>
+      <span>{title}</span> <span>{l ? "—" : (data ?? 0) + " " + unit}</span>
     </li>
   );
 }

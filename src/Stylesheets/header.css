@@ -9,11 +9,18 @@
 
   width: 150px;
   height: 40px;
+  margin-top: 4px;
 
   float: left;
 
   font-size: 0;
 }
+.h-subtitle {
+  text-align: center;
+  font-size: 55px;
+  margin: 80px 0 0;
+}
+
 .h-dropdown-button {
   border: none;
   padding: 10px;
@@ -33,16 +40,27 @@
   position: absolute;
   right: 0;
   top: 54px;
-
-  button {
-    width: 200px;
-  }
+}
+.h-dropdown-unit-button {
+  width: 200px;
+  background-color: var(--generalBackground);
+  border: none;
+  padding: 5px 15px;
+  border-radius: 5px;
 }
 .h-dropdown-field {
   .dropdownItem {
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+}
+.h-dropdown-field-unit {
+  &:hover {
+    cursor: auto;
+  }
+  &[aria-checked="true"] {
+    background-color: var(--generalHoverBack);
   }
 }
 .h-dropdown-field-legend {
@@ -56,10 +74,4 @@
   width: 100%;
   height: 1px;
   margin: 4px 0;
-}
-
-.h-subtitle {
-  text-align: center;
-  font-size: 55px;
-  margin: 80px 0 0;
 }
