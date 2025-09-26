@@ -34,7 +34,15 @@ export default function App() {
     selectedDay - actualDay < 0
       ? selectedDay - actualDay === -1
         ? 6
-        : 5
+        : selectedDay - actualDay === -2
+        ? 5
+        : selectedDay - actualDay === -3
+        ? 4
+        : selectedDay - actualDay === -4
+        ? 3
+        : selectedDay - actualDay === -5
+        ? 2
+        : 1
       : selectedDay - actualDay;
 
   const daysList = [
@@ -91,10 +99,16 @@ export default function App() {
 
   /* LOADING */
   const [isLoading, setIsLoading] = useState(false);
+  const [resultsLoading, setResultsLoading] = useState(false);
 
   // USEEFFECT FOR GETTING THE COORDINATES, COUNTRY AND NAME OF THE LOCATION
   useEffect(() => {
-    if (query.length < 2) return;
+    if (query.length < 2) {
+      setLocationsList([]);
+      setResultsLoading(false);
+      setShowResults(false);
+      return;
+    }
 
     const controller = new AbortController();
 
@@ -113,10 +127,14 @@ export default function App() {
           console.log(err);
         }
       }
+      setResultsLoading(false);
     })();
 
-    return () => controller.abort();
+    return () => {
+      return controller.abort();
+    };
   }, [query]);
+
   // USEEFFECT FOR GETTING THE WEATHER DATA
   useEffect(() => {
     setIsLoading(true);
@@ -144,12 +162,12 @@ export default function App() {
         const data = await res.json();
 
         setWeatherData(data);
+        setIsLoading(false);
       } catch (err) {
         if (err.name !== "AbortError") {
           console.log(err);
         }
       }
-      setIsLoading(false);
     })();
 
     return () => controller.abort();
@@ -166,6 +184,7 @@ export default function App() {
     if (query.length < 2) return;
 
     setTimesSearched((prev) => prev + 1);
+    setIsLoading(true);
 
     const { name, country, timezone } = selectedPlace;
 
@@ -197,7 +216,7 @@ export default function App() {
       </Header>
       <SearchBar
         locationsList={locationsList}
-        states={[showResults, focusResults]}
+        states={[showResults, focusResults, resultsLoading]}
         query={query}
       >
         {[
@@ -209,6 +228,7 @@ export default function App() {
               setFocusResults,
               setShowUnitsBox,
               setShowDays,
+              setResultsLoading,
             ]}
           />,
           <ResultsList
@@ -272,17 +292,17 @@ export default function App() {
           ]}
         </AsideHeader>
         <AsideDataList>
-          {hoursList.map((hour) => (
-            <ADataItem
-              l={isLoading}
-              data={[
-                h_temp?.[hour + 24 * dayIndex],
-                h_code?.[hour + 24 * dayIndex],
-              ]}
-              hour={actualHour + hour}
-              key={hour}
-            />
-          ))}
+          {hoursList.map((hour) => {
+            const index = hour + 24 * dayIndex + actualHour;
+            return (
+              <ADataItem
+                l={isLoading}
+                data={[h_temp?.[index], h_code?.[index]]}
+                hour={actualHour + hour}
+                key={hour}
+              />
+            );
+          })}
         </AsideDataList>
       </Aside>
     </div>

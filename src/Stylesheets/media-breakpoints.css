@@ -1,6 +1,10 @@
-/*======================================== MEDIA QUERIES ========================================*/
 /* TABLET */
 @media only screen and (min-width: 830px) {
+  .App {
+    & > *:not(#Header) {
+      max-width: 800px !important;
+    }
+  }
   h3 {
     font-size: 24px;
   }

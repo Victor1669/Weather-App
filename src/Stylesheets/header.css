@@ -32,6 +32,11 @@
   display: flex;
   gap: 10px;
   position: relative;
+
+  &:focus {
+    outline: 2px solid white;
+    outline-offset: 3px;
+  }
 }
 .h-dropdown {
   display: block;
@@ -43,10 +48,15 @@
 }
 .h-dropdown-unit-button {
   width: 200px;
-  background-color: var(--generalBackground);
+  background-color: var(--generalBack);
+  text-align: start;
   border: none;
-  padding: 5px 15px;
+  padding: 9px 8px;
   border-radius: 5px;
+
+  &:focus {
+    outline: 1px solid white;
+  }
 }
 .h-dropdown-field {
   .dropdownItem {
@@ -56,9 +66,9 @@
   }
 }
 .h-dropdown-field-unit {
-  &:hover {
-    cursor: auto;
-  }
+  padding: 9px 8px;
+  cursor: default;
+
   &[aria-checked="true"] {
     background-color: var(--generalHoverBack);
   }
@@ -66,7 +76,7 @@
 .h-dropdown-field-legend {
   font-size: 15px;
   color: var(--Neutral300);
-  padding: 10px 15px;
+  padding: 9px 8px;
 }
 .h-dropdown-division {
   background-color: var(--generalBorderColor);

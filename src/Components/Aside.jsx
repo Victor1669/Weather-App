@@ -83,6 +83,9 @@ export function ADataItem({ hour, data: [h_temp, h_code], l }) {
     : h_code <= 75
     ? 6
     : 7;
+
+  if (h_temp == undefined && h_code == undefined) return;
+
   return (
     <li className="a-data generalBorder">
       {l || (

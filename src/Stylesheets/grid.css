@@ -41,10 +41,6 @@
 @media only screen and (min-width: 830px) {
   .App {
     grid-template-rows: 25vh repeat(2, 80px) 105vh 80vh;
-
-    & > *:not(#Header) {
-      max-width: none !important;
-    }
   }
   #Main {
     width: 100%;

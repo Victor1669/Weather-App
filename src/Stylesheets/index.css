@@ -1,25 +1,31 @@
 :root {
   /* COLOR PALETTE */
-  --Neutral900: hsl(243, 96%, 9%);
+  /* --Neutral900: hsl(243, 96%, 9%);
   --Neutral800: hsl(243, 27%, 20%);
   --Neutral700: hsl(243, 23%, 24%);
   --Neutral600: hsl(243, 23%, 30%);
   --Neutral300: hsl(240, 6%, 70%);
   --Neutral200: hsl(250, 6%, 84%);
   --Neutral0: hsl(0, 0%, 100%);
-  --Orange500: hsl(28, 100%, 52%);
+  --Orange500: hsl(28, 100%, 52%); */
+
+  --appBack: hsl(243, 96%, 9%);
 
   /* COLORS FOR THE SEARCH BUTTON */
-  --Blue500: hsl(233, 67%, 56%);
-  --Blue700: hsl(248, 70%, 36%);
+  --S_B_Back: hsl(233, 67%, 56%);
+  --S_B_Hover_Back: hsl(248, 70%, 36%);
 
+  --S_B_Focus_Outline_Back: hsl(233, 67%, 56%);
+  --S_B_Focus_Hover_Outline_Back: hsl(248, 70%, 36%);
+
+  /* GENERAL VARIABLES */
   --generalFontColor: hsl(0, 0%, 100%);
 
-  --generalBorderColor: hsl(243, 22%, 37%);
+  --generalBack: hsl(243, 27%, 20%);
+  --generalLighterBack: hsl(243, 23%, 24%);
 
   --generalHoverBack: hsl(244, 22%, 26%);
-
-  --elementsGeneralBackground: hsl(243, 27%, 20%);
+  --generalBorderColor: hsl(243, 22%, 37%);
 
   --locationBgImage: url("/images/bg-today-small.svg");
 }
@@ -34,7 +40,7 @@
 }
 
 .App {
-  background-color: var(--Neutral900);
+  background-color: var(--appBack);
   width: 100%;
   min-height: 100%;
 
@@ -56,10 +62,10 @@ li {
 }
 
 .generalBackground {
-  background-color: var(--elementsGeneralBackground);
+  background-color: var(--generalBack);
 }
 .dropdownContainer {
-  background-color: var(--elementsGeneralBackground);
+  background-color: var(--generalBack);
 
   padding: 5px;
   border-radius: 10px;
@@ -68,7 +74,7 @@ li {
   position: absolute;
 }
 .dropdownItem {
-  background-color: var(--elementsGeneralBackground);
+  background-color: var(--generalBack);
 
   padding: 5px 15px;
   border-radius: 5px;

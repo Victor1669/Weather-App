@@ -1,8 +1,25 @@
 #Aside {
-  border-radius: 20px;
-  padding: 15px;
   width: 345px;
   height: fit-content;
+  min-height: 596px;
+
+  border-radius: 20px;
+  padding: 15px;
+
+  position: relative;
+
+  &::after {
+    content: "";
+    display: block;
+    background-color: hsl(242, 22%, 29%);
+    width: 5px;
+    height: 40%;
+    border-radius: 2.5px;
+
+    position: absolute;
+    right: 0;
+    top: 30%;
+  }
 }
 .a-header {
   position: relative;
@@ -18,7 +35,7 @@
 .a-dropdown-button {
   width: 155px;
 
-  background-color: var(--Neutral600);
+  background-color: var(--generalLighterBack);
   float: right;
 
   padding: 10px;
@@ -31,6 +48,11 @@
 
   span {
     width: 110px;
+  }
+
+  &:focus {
+    outline: 2px solid white;
+    outline-offset: 3px;
   }
 }
 .a-dropdown {
@@ -69,7 +91,7 @@
 
 .a-data {
   height: 54px;
-  background-color: var(--Neutral700);
+  background-color: var(--generalLighterBack);
 
   padding: 10px;
   margin: 10px 0 0;
