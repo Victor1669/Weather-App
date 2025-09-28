@@ -1,8 +1,9 @@
 .App {
   display: grid;
-  grid-template-rows: 40vh repeat(2, 60px) 138vh 80vh;
+  grid-template-rows: 10vh 30vh repeat(2, 60px) 138vh 80vh;
   grid-template-areas:
     "Header"
+    "Subtitle"
     "SearchBar"
     "SearchButton"
     "Main"
@@ -11,6 +12,9 @@
 }
 #Header {
   grid-area: Header;
+}
+#Subtitle {
+  grid-area: Subtitle;
 }
 #SearchBar {
   grid-area: SearchBar;
@@ -37,10 +41,17 @@
   grid-area: Aside;
 }
 
+#Error {
+  grid-column: 2 / 4;
+  grid-row: 2 / 4;
+  width: 100%;
+  height: 100%;
+}
+
 /* TABLET */
 @media only screen and (min-width: 830px) {
   .App {
-    grid-template-rows: 25vh repeat(2, 80px) 105vh 80vh;
+    grid-template-rows: repeat(2, 10vh) repeat(2, 80px) 105vh 80vh;
   }
   #Main {
     width: 100%;
@@ -57,9 +68,10 @@
 @media only screen and (min-width: 1440px) {
   .App {
     grid-template-columns: 1fr 800px 440px 1fr;
-    grid-template-rows: 20vh 80px 286px 1fr;
+    grid-template-rows: repeat(2, 10vh) 80px 286px 1fr;
     grid-template-areas:
       ". Header Header ."
+      ". Subtitle Subtitle ."
       ". SearchBar SearchButton ."
       ". Main Aside ."
       ". Main Aside .";

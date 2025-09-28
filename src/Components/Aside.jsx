@@ -52,7 +52,7 @@ export function AsideDaysList({
           onClick={() => {
             setDay(dayValue);
             setShowDays(false);
-            setSelectedDay(i + 1);
+            setSelectedDay(i + 1 > 6 ? 0 : i + 1);
           }}
         >
           {dayValue}

@@ -4,8 +4,6 @@ export default function Header({ children, states: [showUnitsBox] }) {
       <h1 className="h-logo">Weather Now</h1>
       {children[0]}
       {showUnitsBox && children[1]}
-
-      <h2 className="h-subtitle">How's the sky looking today?</h2>
     </header>
   );
 }

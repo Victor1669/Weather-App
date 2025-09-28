@@ -1,0 +1,28 @@
+#Error {
+  width: fit-content;
+  height: fit-content;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  h3 {
+    font-size: 40px;
+    width: inherit;
+  }
+  p {
+    width: 435px;
+    font-weight: 200;
+  }
+  button {
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+
+    display: flex;
+    gap: 10px;
+  }
+}

@@ -1,3 +1,4 @@
+import { BeatLoader } from "react-spinners";
 import ClimateImages from "../../climate-condition.json";
 
 export default function Main1({ children }) {
@@ -77,5 +78,12 @@ export function M1Data({ title, data, unit, l }) {
     <li className="m-1-data generalBorder generalBackground">
       <span>{title}</span> <span>{l ? "—" : (data ?? 0) + " " + unit}</span>
     </li>
+  );
+}
+export function LoadingSpinner() {
+  return (
+    <div className="loading">
+      <BeatLoader color="white" />
+    </div>
   );
 }

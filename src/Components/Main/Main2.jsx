@@ -33,7 +33,7 @@ export function M2LI({ data: [max = 0, min = 0, d_code] = [], index, l }) {
     : 7;
 
   // DATE
-  const dayIndex = new Date().getDay();
+  const dayNumber = new Date().getDay();
   const daysList = [
     "Monday",
     "Tuesday",
@@ -51,11 +51,13 @@ export function M2LI({ data: [max = 0, min = 0, d_code] = [], index, l }) {
     "Sunday",
   ];
 
+  const dayIndex = dayNumber - 1 + index;
+
   return (
     <li className="m-2-data generalBorder generalBackground">
       {l || (
         <>
-          {daysList[dayIndex - 1 + index].slice(0, 3)}
+          {daysList[dayIndex < 0 ? dayIndex + 7 : dayIndex]?.slice(0, 3)}
           <figure>
             <img
               src={ClimateImages[imgCode].image}

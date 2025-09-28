@@ -6,6 +6,7 @@ import "./Stylesheets/grid.css";
 import "./Stylesheets/main.css";
 import "./Stylesheets/index.css";
 
+import "./Stylesheets/error.css";
 import "./Stylesheets/search-bar.css";
 import "./Stylesheets/header.css";
 import "./Stylesheets/aside.css";
