@@ -24,6 +24,7 @@ dist-ssr
 *.sw?
 
 # Design files (please do not remove 🙂)
+design/*.jpg
 *.sketch
 *.fig
 *.xd

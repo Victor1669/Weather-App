@@ -91,6 +91,12 @@ li {
 .generalBorder {
   border: 1px solid var(--generalBorderColor);
 }
+.imageRotate {
+  transition: rotate 0.4s;
+  &[aria-checked="true"] {
+    rotate: 0 0 1 180deg;
+  }
+}
 
 /*======================================== FONTS ========================================*/
 

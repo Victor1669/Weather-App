@@ -4,7 +4,8 @@ export default function ErrorMessage({ errorMessage, onRetry }) {
       <img width={40} src="/images/icon-error.svg" />
       <h3>Something went wrong</h3>
       <p>
-        We couldn't connect to the server ({errorMessage}). please try again in
+        We couldn't connect to the server (
+        {navigator.onLine ? errorMessage : "No Internet"}). please try again in
         a few moments.
       </p>
       <button onClick={onRetry} className="generalBackground hover">

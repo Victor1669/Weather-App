@@ -22,7 +22,7 @@ import ErrorMessage from "./ErrorMessage";
 
 export default function App() {
   /* HEADER */
-  const [showUnitsBox, setShowUnitsBox] = useState(false);
+  const [showUnits, setShowUnits] = useState(false);
 
   /* SEARCHBAR */
   const [query, setQuery] = useState("");
@@ -75,7 +75,6 @@ export default function App() {
 
   /* SEARCH */
   const [selectedPlace, setSelectedPlace] = useState({});
-
   const [timesSearched, setTimesSearched] = useState(0);
 
   // DATA
@@ -113,6 +112,7 @@ export default function App() {
   const [showContent, setShowContent] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [hasResult, setHasResult] = useState(true);
 
   // USEEFFECT FOR GETTING THE COORDINATES, COUNTRY AND NAME OF THE LOCATION
   useEffect(() => {
@@ -135,15 +135,12 @@ export default function App() {
         ).catch((err) => {
           if (err.name !== "AbortError") {
             setHasError(true);
+            setErrorMessage(err.message);
           }
         });
 
-        if (!navigator.onLine) {
-          setErrorMessage("No Internet");
-        }
-
-        if (!res.ok) {
-          setErrorMessage(res.statusText);
+        if (!res?.ok) {
+          setErrorMessage(res?.statusText);
         }
 
         const data = await res?.json();
@@ -157,23 +154,36 @@ export default function App() {
       setResultsLoading(false);
     })();
 
-    return () => {
-      return controller.abort();
-    };
+    return () => controller.abort();
   }, [query]);
+
+  useEffect(() => {
+    setLocationsList([]);
+    if (query.length > 2) setResultsLoading(true);
+  }, [query]);
+
+  // USEEFFET TO CLOSE THE RESULTS WHEN SELECTING THE LOCATION
+  useEffect(() => {
+    if (!query.length) return;
+    setShowResults(false);
+  }, [selectedPlace]);
 
   // USEEFFECT FOR GETTING THE WEATHER DATA
   useEffect(() => {
     // STARTS THE LOADING EFFECT
     setIsLoading(true);
 
-    if (!locationsList?.length) return setIsLoading(false);
+    if (!locationsList?.length) {
+      setIsLoading(false);
+      return;
+    }
 
     setShowContent(true);
 
     const { latitude, longitude, name, country, timezone } = selectedPlace;
 
     setCityName(name);
+    setQuery(name);
     setCountryName(country);
     setActualHour(
       Number(
@@ -200,23 +210,21 @@ export default function App() {
         setErrorMessage(err.message);
       });
 
-      if (!res) return;
+      if (!res) return setHasResult(false);
 
       const data = await res.json();
 
       setWeatherData(data);
 
       setIsLoading(false);
-      setLocationsList([]);
-      setSelectedPlace({});
     })();
   }, [timesSearched, units]);
 
-  // USEEFFET TO CLOSE THE RESULTS WHEN SELECTING THE LOCATION
+  /* CONTROL THE SCROLL BAR */
   useEffect(() => {
-    if (!query.length) return;
-    setShowResults(false);
-  }, [selectedPlace]);
+    document.body.style.overflowY =
+      showContent && !hasError ? "scroll" : "hidden";
+  }, [showContent, hasError]);
 
   /* USEEFFECT FOR RENDERING IMAGES */
   useEffect(() => {
@@ -226,19 +234,38 @@ export default function App() {
     img2.src = "/images/icon-retry.svg";
   }, []);
 
+  /* GOES TO THE TOP WHEN AN ERROR OCCURS */
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [hasError]);
+
   /* SEARCHING FUNCTION */
   function handleSearch() {
     if (query.length < 2) return;
 
+    if (!locationsList?.length) {
+      setHasResult(false);
+      setShowContent(false);
+      return;
+    }
+
+    if (selectedPlace === locationsList?.[0]) {
+      return;
+    } else setSelectedPlace(locationsList?.[0]);
+
     setIsLoading(true);
 
     if (!Object.keys(selectedPlace ?? {}).length) {
-      setSelectedPlace(locationsList[0]);
+      setSelectedPlace(locationsList?.[0]);
     }
 
     setTimesSearched((prev) => prev + 1);
   }
 
+  /* WHEN CLICKING THE RETRY BUTTON */
   function handleRetry() {
     setHasError(false);
     handleSearch();
@@ -247,10 +274,11 @@ export default function App() {
 
   return (
     <div className="App">
-      <Header states={[showUnitsBox]}>
+      <Header states={[showUnits]}>
         {[
           <HeaderButton
-            setStates={[setShowUnitsBox, setShowDays, setShowResults]}
+            showUnits={showUnits}
+            setStates={[setShowUnits, setShowDays, setShowResults]}
           />,
           <UnitsMenu units={units}>
             <UnitsButton units={units} setUnits={setUnits} />
@@ -266,8 +294,8 @@ export default function App() {
           <Subtitle />
           <SearchBar
             locationsList={locationsList}
-            states={[showResults, focusResults, resultsLoading]}
-            query={query}
+            l={isLoading}
+            states={[query, showResults, focusResults, resultsLoading]}
           >
             {[
               <SearchInput
@@ -276,7 +304,7 @@ export default function App() {
                   setQuery,
                   setShowResults,
                   setFocusResults,
-                  setShowUnitsBox,
+                  setShowUnits,
                   setShowDays,
                   setResultsLoading,
                 ]}
@@ -332,7 +360,7 @@ export default function App() {
                 <Main2>
                   <Main2List>
                     {dailyData.map((data, i) => (
-                      <M2LI l={isLoading} data={data} key={i} index={i} />
+                      <M2LI key={i} l={isLoading} data={data} index={i} />
                     ))}
                   </Main2List>
                 </Main2>
@@ -343,6 +371,7 @@ export default function App() {
                     <AsideButton
                       l={isLoading}
                       day={day}
+                      showDays={showDays}
                       setStates={[setShowDays, setShowResults]}
                     />,
                     <AsideDaysList
@@ -371,6 +400,7 @@ export default function App() {
               </Aside>
             </>
           )}
+          {hasResult || <NoResults />}
         </>
       )}
     </div>
@@ -379,4 +409,7 @@ export default function App() {
 
 function Subtitle() {
   return <h2 id="Subtitle">How's the sky looking today?</h2>;
+}
+function NoResults() {
+  return <h3 id="NoResults">No search result found!</h3>;
 }

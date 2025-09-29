@@ -1,14 +1,15 @@
 export default function SearchBar({
   children,
   locationsList,
-  query,
-  states: [showResults, focusResults, resultsLoading],
+  l,
+  states: [query, showResults, focusResults, resultsLoading],
 }) {
   return (
     <>
       <div id="SearchBar" className="generalBackground" role="searchbox">
         <img
           className="s-img"
+          aria-checked={l}
           src="/images/icon-search.svg"
           alt="Search Icon"
         />

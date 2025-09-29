@@ -21,6 +21,7 @@ export function AsideHeader({ children, states: [showDays, focusShowDays] }) {
 
 export function AsideButton({
   day,
+  showDays,
   setStates: [setShowDays, setShowResults],
   l,
 }) {
@@ -31,7 +32,13 @@ export function AsideButton({
       className="a-dropdown-button hover"
     >
       <span>{l ? "—" : day}</span>
-      <img width={14} src="/images/icon-dropdown.svg" alt="" />
+      <img
+        className="imageRotate"
+        aria-checked={showDays}
+        width={14}
+        src="/images/icon-dropdown.svg"
+        alt=""
+      />
     </button>
   );
 }

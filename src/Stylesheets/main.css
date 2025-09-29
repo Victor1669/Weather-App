@@ -15,6 +15,7 @@
 }
 .m-1-container {
   width: 100%;
+  min-width: 343px;
   height: 286px;
   border-radius: 15px;
   display: flex;

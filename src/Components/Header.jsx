@@ -1,20 +1,21 @@
-export default function Header({ children, states: [showUnitsBox] }) {
+export default function Header({ children, states: [showUnits] }) {
   return (
     <header id="Header">
       <h1 className="h-logo">Weather Now</h1>
       {children[0]}
-      {showUnitsBox && children[1]}
+      {showUnits && children[1]}
     </header>
   );
 }
 export function HeaderButton({
-  setStates: [setShowUnitsBox, setShowDays, setShowResults],
+  showUnits,
+  setStates: [setShowUnits, setShowDays, setShowResults],
 }) {
   return (
     <button
       className="h-dropdown-button generalBackground hover"
       onClick={() => {
-        setShowUnitsBox((s) => !s);
+        setShowUnits((s) => !s);
         setShowDays(false);
         setShowResults(false);
       }}
@@ -22,9 +23,21 @@ export function HeaderButton({
       aria-haspopup="true"
       aria-controls="unit-box"
     >
-      <img width={14} src="/images/icon-units.svg" alt="" />
+      <img
+        className="imageRotate"
+        aria-checked={showUnits}
+        width={14}
+        src="/images/icon-units.svg"
+        alt=""
+      />
       <span className="h-dropdown-legend">Units</span>
-      <img width={14} src="/images/icon-dropdown.svg" alt="" />
+      <img
+        className="imageRotate"
+        aria-checked={showUnits}
+        width={14}
+        src="/images/icon-dropdown.svg"
+        alt=""
+      />
     </button>
   );
 }

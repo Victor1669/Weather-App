@@ -39,6 +39,10 @@
 }
 .s-img {
   z-index: 1;
+
+  &[aria-checked="true"] {
+    animation: both;
+  }
 }
 .s-input {
   background-color: transparent;

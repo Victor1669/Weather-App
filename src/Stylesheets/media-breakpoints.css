@@ -54,5 +54,10 @@
         padding: 1px 15px;
       }
     }
+    #Error {
+      p {
+        width: 435px;
+      }
+    }
   }
 }
