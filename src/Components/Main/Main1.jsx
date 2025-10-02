@@ -6,9 +6,10 @@ export default function Main1({ children }) {
 }
 export function M1MainData({
   children,
+  l,
+  localHour,
   weatherData: [c_temp, c_code],
   locationData: [cityName, countryName],
-  l,
 }) {
   // DATE
   const date = new Date();
@@ -23,9 +24,13 @@ export function M1MainData({
 
   // WEATHER CODE
   const imgCode = !c_code
-    ? 0
+    ? localHour >= 6 && localHour <= 18
+      ? 0
+      : 8
     : c_code <= 2
-    ? 1
+    ? localHour >= 6 && localHour <= 18
+      ? 1
+      : 9
     : c_code === 3
     ? 3
     : c_code <= 48
@@ -43,7 +48,14 @@ export function M1MainData({
       {l ? (
         children
       ) : (
-        <div className="m-1-content">
+        <div
+          className="m-1-content"
+          style={{
+            backgroundImage: `var(--l-bg-${
+              localHour >= 6 && localHour <= 18 ? "light" : "dark"
+            })`,
+          }}
+        >
           <header className="m-1-header">
             <h3 className="m-1-location-name">
               {cityName}, {countryName}
@@ -55,6 +67,7 @@ export function M1MainData({
           </header>
           <div className="m-1-container-data" role="complementary">
             <img
+              className="climate-image"
               width={100}
               src={ClimateImages[imgCode]?.image}
               alt={ClimateImages[imgCode]?.alt}
@@ -76,7 +89,7 @@ export function M1ComplementaryData({ children }) {
 export function M1Data({ title, data, unit, l }) {
   return (
     <li className="m-1-data generalBorder generalBackground">
-      <span>{title}</span> <span>{l ? "—" : (data ?? 0) + " " + unit}</span>
+      <span>{title}</span> <span>{l ? "—" : (data ?? 0) + unit}</span>
     </li>
   );
 }

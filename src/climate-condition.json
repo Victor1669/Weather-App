@@ -30,5 +30,13 @@
   {
     "image": "/images/icon-storm.webp",
     "alt": "Stormy, heavy rain with thunder"
+  },
+  {
+    "image": "/images/icon-moon.webp",
+    "alt": "Clear sky with visible moon"
+  },
+  {
+    "image": "/images/icon-moon-cloudy.webp",
+    "alt": "Partly cloudy, moon visible through clouds"
   }
 ]

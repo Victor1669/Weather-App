@@ -31,6 +31,7 @@ design/*.jpg
 
 # Dependencies
 /node_modules
+node_modules.rar
 /.pnp
 .pnp.js
 yarn.debug.log*

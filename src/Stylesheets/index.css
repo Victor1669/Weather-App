@@ -18,8 +18,11 @@
   --S_B_Focus_Outline_Back: hsl(233, 67%, 56%);
   --S_B_Focus_Hover_Outline_Back: hsl(248, 70%, 36%);
 
+  --aside_after: hsl(243, 23%, 30%);
+
   /* GENERAL VARIABLES */
   --generalFontColor: hsl(0, 0%, 100%);
+  --secondaryFontColor: hsl(250, 6%, 84%);
 
   --generalBack: hsl(243, 27%, 20%);
   --generalLighterBack: hsl(243, 23%, 24%);
@@ -27,7 +30,37 @@
   --generalHoverBack: hsl(244, 22%, 26%);
   --generalBorderColor: hsl(243, 22%, 37%);
 
-  --locationBgImage: url("/images/bg-today-small.svg");
+  --generalSVGfill: white;
+
+  --generalFocusOutlineColor: white;
+
+  --l-bg-dark: url("/images/bg-today-small.svg");
+  --l-bg-light: url("/images/bg-today-small-light.svg");
+}
+:root.light {
+  --appBack: hsl(0, 0%, 100%);
+
+  --S_B_Back: hsl(28, 100%, 52%);
+  --S_B_Hover_Back: hsl(28, 97%, 37%);
+
+  --S_B_Focus_Outline_Back: hsl(28, 100%, 52%);
+  --S_B_Focus_Hover_Outline_Back: hsl(28, 97%, 37%);
+
+  --aside_after: hsl(28, 100%, 52%);
+
+  /* GENERAL VARIABLES */
+  --generalFontColor: hsl(243, 96%, 9%);
+  --secondaryFontColor: hsl(0, 0%, 100%);
+
+  --generalBack: hsl(0, 0%, 89%);
+  --generalLighterBack: hsl(0, 0%, 85%);
+
+  --generalHoverBack: hsl(240, 6%, 70%);
+  --generalBorderColor: hsl(240, 6%, 70%);
+
+  --generalSVGfill: hsl(243, 96%, 9%);
+
+  --generalFocusOutlineColor: hsl(28, 100%, 52%);
 }
 
 * {
@@ -37,21 +70,46 @@
   color: var(--generalFontColor);
   font-size: 18px;
   font-family: "DM Sans";
+
+  svg path.light {
+    fill: var(--generalSVGfill);
+  }
 }
 
 .App {
   background-color: var(--appBack);
   width: 100%;
   min-height: 100vh;
-  overflow-x: hidden;
 
   justify-items: center;
 
-  overflow-y: auto;
+  overflow: auto;
   padding: 15px;
 
   & > *:not(#Header) {
     max-width: 343px;
+  }
+}
+.theme-button {
+  background-color: var(--generalBack);
+  color: var(--generalFontColor);
+  filter: background-color invert(100%);
+  transition: background-color 0.2s;
+
+  padding: 15px 20px;
+  border-radius: 50%;
+  border: 1px solid var(--generalFontColor);
+
+  position: fixed;
+  z-index: 999;
+  bottom: 25px;
+  right: 15px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(
+      from var(--generalBack) calc(r + 30) calc(b + 30) calc(b + 30)
+    );
   }
 }
 
@@ -83,9 +141,15 @@ li {
 }
 .hover {
   transition: background-color 0.2s;
+  cursor: pointer;
   &:hover {
-    cursor: pointer;
     background-color: var(--generalHoverBack);
+  }
+}
+.focus-ouline {
+  &:focus {
+    outline: 2px solid var(--generalFocusOutlineColor);
+    outline-offset: 3px;
   }
 }
 .generalBorder {

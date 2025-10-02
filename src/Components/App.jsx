@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-
+/* eslint-disable */
 import Header, { HeaderButton, UnitsButton, UnitsMenu } from "./Header";
 import SearchBar, { ResultsList, SearchButton, SearchInput } from "./SearchBar";
 import Aside, {
   AsideDaysList,
   AsideHeader,
   AsideButton,
-  LastFocusable,
   AsideDataList,
   ADataItem,
 } from "./Aside";
@@ -68,7 +67,9 @@ export default function App() {
   const [focusShowDays, setFocusShowDays] = useState(false);
 
   // HOURS
-  const [actualHour, setActualHour] = useState(
+  const actualHour = Number(new Date().toLocaleTimeString().slice(0, 2));
+
+  const [localHour, setLocalHour] = useState(
     Number(new Date().toLocaleTimeString().slice(0, 2))
   );
   const hoursList = Array.from({ length: 8 }, (_, i) => i);
@@ -185,7 +186,7 @@ export default function App() {
     setCityName(name);
     setQuery(name);
     setCountryName(country);
-    setActualHour(
+    setLocalHour(
       Number(
         new Date()
           .toLocaleTimeString(undefined, {
@@ -232,6 +233,10 @@ export default function App() {
     const img2 = new Image();
     img1.src = "/images/icon-error.svg";
     img2.src = "/images/icon-retry.svg";
+
+    actualHour >= 6 && actualHour <= 17
+      ? (document.documentElement.className = "light")
+      : (document.documentElement.className = "dark");
   }, []);
 
   /* GOES TO THE TOP WHEN AN ERROR OCCURS */
@@ -244,7 +249,7 @@ export default function App() {
 
   /* SEARCHING FUNCTION */
   function handleSearch() {
-    if (query.length < 2) return;
+    if (query.length < 2) return setHasResult(true);
 
     if (!locationsList?.length) {
       setHasResult(false);
@@ -288,7 +293,6 @@ export default function App() {
       {hasError && (
         <ErrorMessage errorMessage={errorMessage} onRetry={handleRetry} />
       )}
-
       {!hasError && (
         <>
           <Subtitle />
@@ -325,6 +329,7 @@ export default function App() {
                 <Main1>
                   <M1MainData
                     l={isLoading}
+                    localHour={localHour}
                     weatherData={[c_temp, c_code]}
                     locationData={[cityName, countryName]}
                   >
@@ -347,20 +352,26 @@ export default function App() {
                       l={isLoading}
                       title="Wind"
                       data={windSpeed}
-                      unit={units === "Imperial" ? "mph" : "km/h"}
+                      unit={units === "Imperial" ? " mph" : " km/h"}
                     />
                     <M1Data
                       l={isLoading}
                       title="Precipitation"
                       data={c_prec}
-                      unit={units === "Imperial" ? "in" : "mm"}
+                      unit={units === "Imperial" ? " in" : " mm"}
                     />
                   </M1ComplementaryData>
                 </Main1>
                 <Main2>
                   <Main2List>
                     {dailyData.map((data, i) => (
-                      <M2LI key={i} l={isLoading} data={data} index={i} />
+                      <M2LI
+                        l={isLoading}
+                        key={i}
+                        localHour={localHour}
+                        data={data}
+                        index={i}
+                      />
                     ))}
                   </Main2List>
                 </Main2>
@@ -379,19 +390,16 @@ export default function App() {
                       data={[daysList]}
                       setStates={[setDay, setShowDays, setSelectedDay]}
                     />,
-                    <LastFocusable
-                      setStates={[setShowDays, setFocusShowDays]}
-                    />,
                   ]}
                 </AsideHeader>
                 <AsideDataList>
                   {hoursList.map((hour) => {
-                    const index = hour + 24 * dayIndex + actualHour;
+                    const index = hour + 24 * dayIndex + localHour;
                     return (
                       <ADataItem
                         l={isLoading}
                         data={[h_temp?.[index], h_code?.[index]]}
-                        hour={actualHour + hour}
+                        hour={localHour + hour}
                         key={hour}
                       />
                     );
@@ -401,6 +409,9 @@ export default function App() {
             </>
           )}
           {hasResult || <NoResults />}
+          <ThemeButton
+            setStates={[setShowDays, setShowUnits, setShowResults]}
+          />
         </>
       )}
     </div>
@@ -412,4 +423,22 @@ function Subtitle() {
 }
 function NoResults() {
   return <h3 id="NoResults">No search result found!</h3>;
+}
+function ThemeButton({
+  setStates: [setShowDays, setShowUnits, setShowResults],
+}) {
+  return (
+    <button
+      className="theme-button focus-ouline"
+      tabIndex={0}
+      onClick={() => document.documentElement.classList.toggle("light")}
+      onFocus={() => {
+        setShowDays(false);
+        setShowUnits(false);
+        setShowResults(false);
+      }}
+    >
+      ☀
+    </button>
+  );
 }

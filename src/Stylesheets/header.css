@@ -4,7 +4,6 @@
 }
 
 .h-logo {
-  background: url("/images/logo.svg") no-repeat;
   background-size: contain;
 
   width: 150px;
@@ -30,13 +29,10 @@
   cursor: pointer;
 
   display: flex;
+  align-items: center;
   gap: 10px;
-  position: relative;
 
-  &:focus {
-    outline: 2px solid white;
-    outline-offset: 3px;
-  }
+  position: relative;
 }
 .h-dropdown {
   display: block;
@@ -54,10 +50,6 @@
   border: none;
   padding: 9px 8px;
   border-radius: 5px;
-
-  &:focus {
-    outline: 1px solid white;
-  }
 }
 .h-dropdown-field {
   .dropdownItem {

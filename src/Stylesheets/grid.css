@@ -1,6 +1,6 @@
 .App {
   display: grid;
-  grid-template-rows: 10vh 30vh repeat(2, 60px) 138vh 80vh;
+  grid-template-rows: 10vh 30vh repeat(2, 60px) 1100px 650px;
   grid-template-areas:
     "Header"
     "Subtitle"

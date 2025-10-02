@@ -15,11 +15,20 @@ export function Main2List({ children }) {
     </ul>
   );
 }
-export function M2LI({ data: [max = 0, min = 0, d_code] = [], index, l }) {
+export function M2LI({
+  l,
+  data: [max = 0, min = 0, d_code] = [],
+  localHour,
+  index,
+}) {
   const imgCode = !d_code
-    ? 0
+    ? localHour >= 6 && localHour <= 18
+      ? 0
+      : 8
     : d_code <= 2
-    ? 1
+    ? localHour >= 6 && localHour <= 18
+      ? 1
+      : 9
     : d_code === 3
     ? 3
     : d_code <= 48
@@ -60,6 +69,7 @@ export function M2LI({ data: [max = 0, min = 0, d_code] = [], index, l }) {
           {daysList[dayIndex < 0 ? dayIndex + 7 : dayIndex]?.slice(0, 3)}
           <figure>
             <img
+              className="climate-image"
               src={ClimateImages[imgCode].image}
               alt={ClimateImages[imgCode].alt}
             />

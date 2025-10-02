@@ -5,13 +5,14 @@
 
   border-radius: 20px;
   padding: 15px;
+  margin-bottom: 20px;
 
   position: relative;
 
   &::after {
     content: "";
     display: block;
-    background-color: hsl(242, 22%, 29%);
+    background-color: var(--aside_after);
     width: 5px;
     height: 40%;
     border-radius: 2.5px;
@@ -44,15 +45,22 @@
   cursor: pointer;
 
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
 
   span {
     width: 110px;
   }
 
   &:focus {
-    outline: 2px solid white;
+    outline: 2px solid var(--generalFocusOutlineColor);
     outline-offset: 3px;
+  }
+
+  &[aria-checked="true"] {
+    + ul {
+      display: block;
+    }
   }
 }
 .a-dropdown {
@@ -70,19 +78,20 @@
 
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     border: none;
     padding: 5px 15px;
     border-radius: 5px;
 
-    img {
+    svg {
       display: none;
       float: right;
     }
 
     &[aria-checked="true"] {
       background-color: var(--generalHoverBack);
-      img {
+      svg {
         display: block;
       }
     }

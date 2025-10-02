@@ -1,5 +1,9 @@
 /* TABLET */
 @media only screen and (min-width: 830px) {
+  :root {
+    --l-bg-dark: url("/images/bg-today-large.svg");
+    --l-bg-light: url("/images/bg-today-large-light.svg");
+  }
   .App {
     & > *:not(#Header) {
       max-width: 800px !important;
@@ -10,7 +14,6 @@
   }
   .m-1-content {
     width: 100%;
-    background-image: url("/images/bg-today-large.svg");
 
     flex-direction: row;
     align-items: center;

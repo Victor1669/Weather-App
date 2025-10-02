@@ -29,12 +29,16 @@
   padding: 30px;
   align-items: center;
 
-  background: var(--locationBgImage) no-repeat;
+  background: var(--l-bg-small) no-repeat;
   background-size: 100%;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  * {
+    color: var(--secondaryFontColor);
+  }
 }
 
 .m-1-location-name {
@@ -45,9 +49,13 @@
   align-items: center;
   gap: 15px;
 }
+.climate-image {
+  filter: drop-shadow(2px 2px 5px #000) contrast(150%);
+}
 .m-1-data-number {
   font-size: 65px;
   font-style: italic;
+  text-shadow: 2px 2px black;
 }
 
 #m-1-list {
