@@ -22,6 +22,8 @@ A simple and responsive weather application built with **React** and **CSS**. It
 - CSS — Styling the UI
 - OpenWeatherMap API (or any other weather API)
 
+---
+
 ## 🌐 Live in
 
 https://weather-app-oe44.onrender.com/
