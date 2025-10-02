@@ -1,9 +1,5 @@
 # Frontend Mentor - Weather app
 
-![Design preview for the Weather app coding challenge](./preview.jpg)
-
-# Frontend Mentor - Weather app
-
 A simple and responsive weather application built with **React** and **CSS**. It allows users to search for current weather conditions in any city worldwide using real-time data.
 
 ![screenshot](./preview.jpg)
