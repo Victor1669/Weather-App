@@ -259,7 +259,7 @@ export default function App() {
 
     if (selectedPlace === locationsList?.[0]) {
       return;
-    } else setSelectedPlace(locationsList?.[0]);
+    }
 
     setIsLoading(true);
 
